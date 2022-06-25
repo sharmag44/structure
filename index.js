@@ -1,15 +1,16 @@
 //express code
 const express = require('express');
 const app = express();
-const port = 3000;
+const cors = require("cors");
+const corsOption = {
+    origin: "localhost:3000",
+};
 
-
-//body parser code
+app.use(cors(corsOption));
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use("./src/Models/connection");
 
 
 app.listen(port, () => console.log(`listening on port ${port}!`));
