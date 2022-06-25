@@ -1,16 +1,23 @@
-//express code
-const express = require('express');
-const app = express();
+
+const express = require("express");
 const cors = require("cors");
+const db = require("./models");
+const app = express();
+const port = process.env.PORT || 3000;
 const corsOption = {
     origin: "localhost:3000",
 };
 
 app.use(cors(corsOption));
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+    res.json({ message: "Hello World" });
+});
+db.sequelize.sync();
+require("./routes/routes")(app);
 
-
-app.listen(port, () => console.log(`listening on port ${port}!`));
+app.listen(port, () => {
+    console.log(`Server is running at port ${port}`);
+});
